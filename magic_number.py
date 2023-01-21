@@ -1,4 +1,4 @@
-import os
+import os, random
 
 REWARDS = {
     "Chocolate bar": 10,
@@ -26,7 +26,22 @@ def main():
     game_loop()
 
 def game_loop():
-    pass
+    global LIFES
+
+    magic_number = 5
+    player_guess = input("Your guess:")
+
+    while player_guess != str(magic_number):
+        LIFES -= 1
+
+        if LIFES == 0:
+            print("Wrong guess. The game is over :(")
+            outro()
+        
+        print(f"Wrong guess but you have {LIFES} lifes left.")
+        player_guess = input("Your guess:")
+
+    outro()
 
 def get_player_name():
     global PLAYER_NAME
