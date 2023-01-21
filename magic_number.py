@@ -1,6 +1,6 @@
 import os, random
 
-REWARDS = {
+SHOP = {
     "Chocolate bar": 10,
     "Cinema ticker": 30,
     "Travel ticker": 40
@@ -8,6 +8,7 @@ REWARDS = {
 
 MIN = 1
 MAX = 10
+REWARD = 10
 
 # player variables
 LIFES = 3
@@ -47,7 +48,25 @@ def game_loop():
         print(f"Wrong guess but you have {LIFES} lifes left.")
         player_guess = input("Your guess:")
 
-    outro()
+    claim_reward(magic_number, player_guess)
+
+def claim_reward(magic_number, player_guess):
+    global CREDITS
+
+    clear_screen()
+
+    if str(magic_number) == player_guess:
+        CREDITS += REWARD
+        print(f"Yess! {magic_number} was my number.")
+        print(f"You won {REWARD} credits")
+        print(f"Now you have {CREDITS} credits")
+
+    player_choice = get_if_want_to_play()
+    if player_choice == "y":
+        game_loop()
+    else:
+        outro()
+
 
 def get_if_want_to_play():
     result = input("Do you want to play again? (y/n)")
