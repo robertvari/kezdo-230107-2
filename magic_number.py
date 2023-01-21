@@ -12,7 +12,7 @@ REWARD = 10
 
 # player variables
 LIFES = 3
-CREDITS = 0
+CREDITS = 10
 PLAYER_NAME = None
 
 # entry point
@@ -27,6 +27,7 @@ def main():
     game_loop()
 
 def game_loop():
+    clear_screen()
     global LIFES
 
     magic_number = 5
@@ -57,7 +58,7 @@ def claim_reward(magic_number, player_guess):
 
     if str(magic_number) == player_guess:
         CREDITS += REWARD
-        print(f"Yess! {magic_number} was my number.")
+        print(f"Yess {PLAYER_NAME}! {magic_number} was my number.")
         print(f"You won {REWARD} credits")
         print(f"Now you have {CREDITS} credits")
 
