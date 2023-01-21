@@ -36,12 +36,22 @@ def game_loop():
 
         if LIFES == 0:
             print("Wrong guess. The game is over :(")
-            outro()
+            player_choice = get_if_want_to_play()
+
+            if player_choice == "y":
+                LIFES = 3
+                game_loop()
+            else:
+                outro()
         
         print(f"Wrong guess but you have {LIFES} lifes left.")
         player_guess = input("Your guess:")
 
     outro()
+
+def get_if_want_to_play():
+    result = input("Do you want to play again? (y/n)")
+    return result
 
 def get_player_name():
     global PLAYER_NAME
