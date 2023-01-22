@@ -47,6 +47,27 @@ def get_photos(folder_path):
 def collect_data(photo_list):
     photo_data = {}
 
+    # read image data
+    for image_file in photo_list:
+        img = Image.open(image_file)
+        size = img.size
+        exif_data = img._getexif()
+
+        if not exif_data:  # skip images without exif data
+            continue
+
+        camera_model = exif_data.get(0x0110)
+        date = exif_data.get(0x9003)
+        iso = exif_data.get(0x8827)
+        
+        # add image data to photo_data
+        photo_data[image_file] = {
+            "size": size,
+            "camera_model": camera_model,
+            "date": date,
+            "iso": iso
+        }
+
     return photo_data
 
 def save_data():
