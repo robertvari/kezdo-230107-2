@@ -5,7 +5,8 @@ def main():
     folder = get_folder_path()
     photo_files = get_photos(folder)
     photo_data = collect_data(photo_files)
-
+    
+    save_data(photo_data)
 
 def get_folder_path():
     folder_path = r"D:\Work\_PythonSuli\kezdo-230107\photos"
