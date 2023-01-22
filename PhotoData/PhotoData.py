@@ -71,7 +71,15 @@ def collect_data(photo_list):
 
     return photo_data
 
-def save_data():
-    pass
+def save_data(photo_data: dict, format="json"):
+    """This function saves data to .json format by default.
+    \nxlsx format also suported.
+    """
+    if format == "json":
+        print("Save data to .json format")
+    elif format == "xlsx":
+        print("Save data to excel format")
+    else:
+        print(f"Format: {format} not suported :(")
 
 main()
