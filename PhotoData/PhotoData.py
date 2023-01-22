@@ -1,12 +1,13 @@
 import os, json
 from PIL import Image, ExifTags
+from openpyxl import Workbook
 
 def main():
     folder = get_folder_path()
     photo_files = get_photos(folder)
     photo_data = collect_data(photo_files)
     
-    save_data(photo_data)
+    save_data(photo_data, format="xlsx")
 
 def get_folder_path():
     folder_path = r"D:\Work\_PythonSuli\kezdo-230107\photos"
@@ -75,6 +76,30 @@ def save_data(photo_data: dict, format="json"):
     """This function saves data to .json format by default.
     \nxlsx format also suported.
     """
+
+    def save_xlsx():
+        workbook = Workbook()
+        active_sheet = workbook.active
+
+        active_sheet["A1"] = "File Path"
+        active_sheet["B1"] = "Date"
+        active_sheet["C1"] = "Size"
+        active_sheet["D1"] = "Camera"
+        active_sheet["E1"] = "ISO"
+
+        for index, filepath in enumerate(photo_data):
+            row = index + 3
+            active_sheet[f"A{row}"] = filepath
+            active_sheet[f"B{row}"] = photo_data[filepath]["date"]
+            active_sheet[f"C{row}"] = str(photo_data[filepath]["size"])
+            active_sheet[f"D{row}"] = photo_data[filepath]["camera_model"]
+            active_sheet[f"E{row}"] = photo_data[filepath]["iso"]
+
+
+        
+        workbook.save("photo_data.xlsx")
+
+
     if format == "json":
         with open("photo_data.json", "w") as data_file:
             json.dump(photo_data, data_file)
@@ -82,7 +107,7 @@ def save_data(photo_data: dict, format="json"):
         print("Data saved to photo_data.json")
     
     elif format == "xlsx":
-        print("Save data to excel format")
+        save_xlsx()
     
     else:
         print(f"Format: {format} not suported :(")
