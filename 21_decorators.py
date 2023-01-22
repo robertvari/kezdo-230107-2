@@ -9,13 +9,7 @@ def my_timer(func):
         return result
     return wrapper
 
-def do_nothing(func):
-    def wrapper(*args, **kwargs):
-        print(f"Hello. I do nothing :))) :P")
-        func(*args, **kwargs)
-    return wrapper
 
-@do_nothing
 @my_timer
 def worker1():
     print("Worker 1 started...")
@@ -29,7 +23,6 @@ def worker2():
     print("Worker 2 finished!")
 
 @my_timer
-@do_nothing
 def worker3():
     print("Worker 3 started...")
     time.sleep(random.randint(1, 10))
