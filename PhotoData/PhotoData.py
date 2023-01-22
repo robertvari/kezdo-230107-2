@@ -3,7 +3,8 @@ from PIL import Image, ExifTags
 
 def main():
     folder = get_folder_path()
-    print(folder)
+    photo_files = get_photos(folder)
+    photo_data = collect_data(photo_files)
 
 
 def get_folder_path():
@@ -43,8 +44,10 @@ def get_photos(folder_path):
 
     return photo_files
 
-def create_data():
-    pass
+def collect_data(photo_list):
+    photo_data = {}
+
+    return photo_data
 
 def save_data():
     pass
