@@ -76,9 +76,14 @@ def save_data(photo_data: dict, format="json"):
     \nxlsx format also suported.
     """
     if format == "json":
-        print("Save data to .json format")
+        with open("photo_data.json", "w") as data_file:
+            json.dump(photo_data, data_file)
+        
+        print("Data saved to photo_data.json")
+    
     elif format == "xlsx":
         print("Save data to excel format")
+    
     else:
         print(f"Format: {format} not suported :(")
 
