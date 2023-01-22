@@ -1,4 +1,4 @@
-import time, random
+import time, random, queue, threading
 
 file_list = [
     "file1.jpg", 
@@ -13,7 +13,22 @@ file_list = [
     "file10.jpg",
 ]
 
-def image_worker(file_name):
-    print(f"Started converting {file_name}...")
-    time.sleep(random.randint(5, 20))
-    print(f"Task finished!")
+job_queue = queue.Queue()
+
+# add files to job_queue
+for i in file_list:
+    job_queue.put(i)
+
+def image_worker():
+    while not job_queue.empty():
+        file_name = job_queue.get()
+        print(f"Started converting {file_name}...")
+        time.sleep(random.randint(5, 20))
+        print(f"Task finished! {file_name}")
+
+        job_queue.task_done()
+
+
+for _ in range(100):
+    t = threading.Thread(target=image_worker)
+    t.start()
